@@ -1,9 +1,5 @@
 #!/usr/bin/env node
-if(process.argv.length<5 || process.argv.length>7)
-{
-	console.log("Usage : rbot <host> <port> <name> [<password>] [<master>]");
-	process.exit(1);
-}
+require('dotenv').config();
 const mineflayer = require('mineflayer');
 const AutoAuth =  require('mineflayer-auto-auth');
 const blockFinderPlugin = require('mineflayer-blockfinder')(mineflayer);
@@ -11,11 +7,10 @@ const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 const navigate2Plugin = require('./avoidBedrock.js')(mineflayer);
 const async=require('async');
 const bot = mineflayer.createBot({
-	host: process.argv[2],
-	port: process.argv[3],
-	username: process.argv[4],
+	host: process.env.MC_HOST,
+	port: process.env.MC_PORT,
+	username: process.env.MC_USERNAME,
 	puglins: [AutoAuth]
-
 });
 
 navigatePlugin(bot);
