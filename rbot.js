@@ -5,16 +5,17 @@ if(process.argv.length<5 || process.argv.length>7)
 	process.exit(1);
 }
 const mineflayer = require('mineflayer');
+const AutoAuth =  require('mineflayer-auto-auth');
 const blockFinderPlugin = require('mineflayer-blockfinder')(mineflayer);
 const navigatePlugin = require('mineflayer-navigate')(mineflayer);
 const navigate2Plugin = require('./avoidBedrock.js')(mineflayer);
 const async=require('async');
 const bot = mineflayer.createBot({
+	host: process.argv[2],
+	port: process.argv[3],
 	username: process.argv[4],
-	verbose: true,
-	port:parseInt(process.argv[3]),
-	host:process.argv[2],
-	password:process.argv[5]
+	puglins: [AutoAuth]
+
 });
 
 navigatePlugin(bot);
